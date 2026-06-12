@@ -236,56 +236,24 @@
             // Lógica para asignar jugador y mensaje según puntaje sobre 10
             switch (puntaje) {
                 case 10:
-                    imgJugador.src = "image_1.png"; // Messi celebración
+                    imgJugador.src = "image_1.png.jfif"; 
                     mensajeTotal = `<strong>¡Te sacaste un Messi!</strong><br><br>Un 10 absoluto. Campeón del Mundo dramático. Tu línea de acción fue perfecta.`;
                     break;
                 case 9:
-                    imgJugador.src = "image_6.png"; // Di María gol final
+                    imgJugador.src = "image_6.png.jfif"; 
                     mensajeTotal = `¡90% Perfecto!<br><br>Como el fideo Di María en las finales. Apareciste cuando el conflicto dramático más lo necesitaba.`;
                     break;
                 case 8:
-                    imgJugador.src = "image_4.png"; // Dibu salvada penal
+                    imgJugador.src = "image_4.png.jfif"; 
                     mensajeTotal = `¡Sólido como el Dibu! 80% de efectividad.<br><br>¡Mirá cómo te como, Teatro! Resolviste la secuencia con autoridad táctica.`;
                     break;
                 case 7:
-                    imgJugador.src = "image_2.png"; // Scaloni festejo sobrio
+                    imgJugador.src = "image_2.png.jfif"; 
                     mensajeTotal = `¡70% Completado!<br><br>Liderazgo de Scaloni. Hay un proceso dramático en marcha y estás modificando el entorno.`;
                     break;
                 default:
-                    // De 0 a 6 aciertos: Muestra imagen general del equipo festejando
-                    imgJugador.src = "image_0.png"; // Imagen celebración grupal
-                    mensajeTotal = `¡No pasa nada, equipo! ${puntaje * 10}%.<br><br>Scaloni te banca. A seguir entrenando la necesidad y la línea de acción dramática.`;
+                    // De 0 a 6 aciertos: Aparece FRANCIA
+                    imgJugador.src = "image_0.png.jfif"; 
+                    mensajeTotal = `<strong>¡Desaprobado! ${puntaje * 10}%</strong><br><br>Estás como Francia... te faltó acción dramática y te quedaste solo en el movimiento. ¡A volver a entrenar! 🇫🇷🏃‍♂️💨`;
                     break;
             }
-
-            textoSituacion.innerHTML = mensajeTotal;
-        }
-
-        function verificar(respuestaAlumno) {
-            const respuestaCorrecta = situaciones[indiceActual].tipo;
-
-            if (respuestaAlumno === respuestaCorrecta) {
-                feedback.textContent = "¡Correcto! ✔️";
-                feedback.style.color = "#48bb78"; 
-                puntaje++;
-            } else {
-                feedback.textContent = "Incorrecto ❌";
-                feedback.style.color = "#f56565"; 
-            }
-            
-            contenedorBotones.style.pointerEvents = 'none';
-            contenedorBotones.style.opacity = '0.5';
-
-            indiceActual++;
-            
-            setTimeout(() => {
-                cargarSituacion();
-                contenedorBotones.style.pointerEvents = 'auto';
-                contenedorBotones.style.opacity = '1';
-            }, 1200);
-        }
-
-        cargarSituacion();
-    </script>
-</body>
-</html>
