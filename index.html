@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Estructura Dramática</title>
+    <style>
+        /* Estilo elegante */
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1d 0%, #2d2d34 100%);
+            color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 34px;
+            margin: 0 0 5px 0;
+            color: #d4af37; /* Dorado elegante */
+            letter-spacing: 1.5px;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #a0a0a5;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        #contador {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 16px;
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .tarjeta {
+            background-color: #ffffff;
+            color: #2c2c30;
+            padding: 30px 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+            margin-bottom: 35px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.4;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            border-top: 4px solid #d4af37;
+        }
+        .botones {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 380px;
+        }
+        button {
+            flex: 1;
+            padding: 18px 10px;
+            font-size: 17px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        button:active {
+            transform: scale(0.96);
+        }
+        .btn-movimiento { background-color: #4a5568; }
+        .btn-accion { background-color: #2b6cb0; }
+        
+        #feedback {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 35px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Estructura Dramática</h1>
+    <h2>¿Acción o Movimiento?</h2>
+    
+    <div id="contador"></div>
+
+    <div class="tarjeta" id="texto-situacion">
+        </div>
+
+    <div class="botones">
+        <button class="btn-movimiento" onclick="verificar('movimiento')">Movimiento</button>
+        <button class="btn-accion" onclick="verificar('accion')">Acción</button>
+    </div>
+
+    <div id="feedback"></div>
+
+    <script>
+        const situacionesBase = [
+            // 20 MOVIMIENTOS
+            { texto: "Caminar de un lado a otro en la habitación", tipo: "movimiento" },
+            { texto: "Girar la muñeca repetidamente en círculos", tipo: "movimiento" },
+            { texto: "Levantar los brazos hacia el techo", tipo: "movimiento" },
+            { texto: "Soplar aire fuerte por la boca", tipo: "movimiento" },
+            { texto: "Mover los dedos sobre la superficie de la mesa", tipo: "movimiento" },
+            { texto: "Parpadear rápidamente mirando a la pared", tipo: "movimiento" },
+            { texto: "Mover la cabeza de izquierda a derecha sin fijar la vista", tipo: "movimiento" },
+            { texto: "Levantar una pierna y volver a bajarla", tipo: "movimiento" },
+            { texto: "Encoger los hombros por un instante", tipo: "movimiento" },
+            { texto: "Saltar en el lugar un par de veces", tipo: "movimiento" },
+            { texto: "Flexionar las rodillas", tipo: "movimiento" },
+            { texto: "Balancear los brazos al costado del cuerpo", tipo: "movimiento" },
+            { texto: "Estirar el cuello hacia atrás", tipo: "movimiento" },
+            { texto: "Abrir y cerrar las manos repetidamente", tipo: "movimiento" },
+            { texto: "Desplazarse un par de pasos hacia adelante", tipo: "movimiento" },
+            { texto: "Sentarse en la silla y pararse de inmediato", tipo: "movimiento" },
+            { texto: "Rotar los tobillos en el aire", tipo: "movimiento" },
+            { texto: "Inclinar el torso hacia adelante", tipo: "movimiento" },
+            { texto: "Cruzar y descruzar las piernas", tipo: "movimiento" },
+            { texto: "Llevarse la mano a la cara sin mirar", tipo: "movimiento" },
+
+            // 20 ACCIONES
+            { texto: "Caminar de un lado a otro para memorizar el guion del acto escolar", tipo: "accion" },
+            { texto: "Levantar los brazos para acomodar los focos LED del escenario", tipo: "accion" },
+            { texto: "Desarmar la canilla monocomando para cambiar el cuerito roto", tipo: "accion" },
+            { texto: "Tocar el saxofón alto para ensayar las pistas de la banda", tipo: "accion" },
+            { texto: "Poner agua en la cafetera para preparar el desayuno", tipo: "accion" },
+            { texto: "Investigar precios en internet para viajar a Florianópolis", tipo: "accion" },
+            { texto: "Abrir Canva para diseñar un logo que atraiga más clientes", tipo: "accion" },
+            { texto: "Mover la cabeza de izquierda a derecha para negar una acusación en escena", tipo: "accion" },
+            { texto: "Levantar la mano en la reunión para pedir la palabra", tipo: "accion" },
+            { texto: "Saltar para alcanzar un libro de la repisa más alta", tipo: "accion" },
+            { texto: "Leer en voz alta para practicar la pronunciación en inglés antes de un viaje", tipo: "accion" },
+            { texto: "Conectar el dron a la batería para grabar la vista aérea", tipo: "accion" },
+            { texto: "Acomodar los bancos del aula para armar un círculo de debate", tipo: "accion" },
+            { texto: "Editar el video en Filmora para quitarle la marca de agua", tipo: "accion" },
+            { texto: "Buscar figuritas para completar el álbum del Mundial", tipo: "accion" },
+            { texto: "Caminar rápido por el aeropuerto para no perder el vuelo a Aruba", tipo: "accion" },
+            { texto: "Pintar la baranda de metal para evitar que se oxide", tipo: "accion" },
+            { texto: "Comprar una notebook nueva para acelerar la edición de video", tipo: "accion" },
+            { texto: "Practicar los acordes en el ukelele para sacar una canción nueva", tipo: "accion" },
+            { texto: "Abrir el ropero para buscar ropa limpia y ordenarla", tipo: "accion" }
+        ];
+
+        // Función para mezclar la lista al azar
+        function mezclarArray(array) {
+            let arrayMezclado = [...array];
+            for (let i = arrayMezclado.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arrayMezclado[i], arrayMezclado[j]] = [arrayMezclado[j], arrayMezclado[i]];
+            }
+            return arrayMezclado;
+        }
+
+        // Mezclamos todas y recortamos solo las primeras 10 para jugar
+        const totalPreguntas = 10;
+        let situaciones = mezclarArray(situacionesBase).slice(0, totalPreguntas);
+        
+        let indiceActual = 0;
+        let puntaje = 0;
+
+        const tarjeta = document.getElementById('texto-situacion');
+        const feedback = document.getElementById('feedback');
+        const contador = document.getElementById('contador');
+        const contenedorBotones = document.querySelector('.botones');
+
+        function cargarSituacion() {
+            if (indiceActual < totalPreguntas) {
+                tarjeta.innerHTML = situaciones[indiceActual].texto;
+                contador.textContent = `Pregunta ${indiceActual + 1} de ${totalPreguntas}`;
+                feedback.textContent = ""; 
+            } else {
+                // Cálculo del porcentaje
+                const porcentaje = Math.round((puntaje / totalPreguntas) * 100);
+                
+                contador.style.display = 'none';
+                tarjeta.innerHTML = `<strong>¡Juego completado! 🎭</strong><br><br>Acertaste ${puntaje} de ${totalPreguntas}.<br><br><span style="font-size: 28px; color: #d4af37;">Tu puntaje es: ${porcentaje}%</span>`;
+                contenedorBotones.style.display = 'none';
+                feedback.textContent = "";
+            }
+        }
+
+        function verificar(respuestaAlumno) {
+            const respuestaCorrecta = situaciones[indiceActual].tipo;
+
+            if (respuestaAlumno === respuestaCorrecta) {
+                feedback.textContent = "¡Correcto! ✔️";
+                feedback.style.color = "#48bb78"; 
+                puntaje++;
+            } else {
+                feedback.textContent = "Incorrecto ❌";
+                feedback.style.color = "#f56565"; 
+            }
+            
+            contenedorBotones.style.pointerEvents = 'none';
+            contenedorBotones.style.opacity = '0.5';
+
+            indiceActual++;
+            
+            setTimeout(() => {
+                cargarSituacion();
+                contenedorBotones.style.pointerEvents = 'auto';
+                contenedorBotones.style.opacity = '1';
+            }, 1200);
+        }
+
+        // Iniciamos el juego
+        cargarSituacion();
+    </script>
+</body>
+</html>
